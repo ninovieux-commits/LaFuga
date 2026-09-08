@@ -75,7 +75,11 @@ public class FugaMessagingService extends FirebaseMessagingService {
             }
             PendingIntent pi = PendingIntent.getActivity(this, 0, intent, flags);
 
-            int iconRes = getApplicationInfo().icon;
+            int iconRes = getResources().getIdentifier(
+                "notif_icon", "drawable", getPackageName());
+            if (iconRes == 0) {
+                iconRes = getApplicationInfo().icon;   // repli si absente
+            }
 
             Notification.Builder nb;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
